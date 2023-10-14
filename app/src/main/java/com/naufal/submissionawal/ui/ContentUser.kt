@@ -1,5 +1,8 @@
 package com.naufal.submissionawal.ui
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -7,6 +10,7 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
@@ -25,7 +29,9 @@ import org.json.JSONObject
 class ContentUser : AppCompatActivity() {
     private lateinit var contentUser: ActivityContentUserBinding
     private lateinit var userViewModel: UserViewModel
-
+    private  var sharedPreferences : SharedPreferences? = null
+    private  var editor : SharedPreferences.Editor? = null
+    private var nightMode : Boolean? = false
     companion object{
         @StringRes
         private val TAB_TITLE = intArrayOf(R.string.tab_layout_text1, R.string.tab_layout_text2)
@@ -36,6 +42,31 @@ class ContentUser : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         contentUser = ActivityContentUserBinding.inflate(layoutInflater)
         setContentView(contentUser.root)
+
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE)
+        nightMode = sharedPreferences?.getBoolean("nightMode", false)!!
+
+        contentUser.MtAppBar.setOnMenuItemClickListener { menuItem -> when(menuItem.itemId){
+            R.id.appBarFavorite -> {
+                val  intent = Intent(this, FavoriteActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.appBarThemeMode -> {
+                if (nightMode == false){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    editor = sharedPreferences?.edit()
+                    editor?.putBoolean("nightMode", true)
+                }else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    editor = sharedPreferences?.edit()
+                    editor?.putBoolean("nightMode", false)
+                }
+                editor?.apply()
+                true
+            }
+            else -> false
+        } }
 
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         showLoading(true)

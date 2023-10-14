@@ -6,17 +6,36 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.ContentUser">
-    
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/AppbarBackground"
+        app:layout_constraintBottom_toTopOf="@+id/cv_avatarContentUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/Mt_appBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/option_favorite"
+            app:title="@string/detail_user" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/cv_avatarContentUser"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBar"
         tools:src="@tools:sample/avatars" />
 
     <TextView
@@ -78,16 +97,16 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
+        style="@style/TablayoutBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:contentDescription="Following Follower"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/following_follower_tabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:tabIndicatorColor="@color/red"
-        app:tabTextColor="@color/black" />
+        app:tabIndicatorColor="@color/grey" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPagerUserDetail"
@@ -108,6 +127,21 @@
         app:layout_constraintStart_toStartOf="@+id/viewPagerUserDetail"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_Favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="@string/favorite_float"
+        android:src="@drawable/baseline_favorite_24"
+        style="@style/FloatBackground"
+        app:borderWidth="20dp"
+        app:elevation="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" >
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 
 
