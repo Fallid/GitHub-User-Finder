@@ -19,7 +19,7 @@
             android:id="@+id/Mt_appBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="Github Search User"
+            app:title="@string/github_find_user"
             app:menu="@menu/option_menu"
             />
     </com.google.android.material.appbar.AppBarLayout>

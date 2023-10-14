@@ -10,13 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@color/lightPurple"
+        style="@style/AppbarBackground"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
     <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/Mt_appBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:title="Favorite User"/>
+        app:title="Favorite User"
+        app:menu="@menu/option_favorite"
+        />
     </com.google.android.material.appbar.AppBarLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

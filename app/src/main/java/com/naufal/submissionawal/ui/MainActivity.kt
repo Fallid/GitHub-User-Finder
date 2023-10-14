@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.naufal.submissionawal.R
@@ -24,11 +23,9 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var searchViewModel: SearchViewModel
-    private lateinit var favoriteBinding: ActivityMainBinding
-    private lateinit var switchMode : SwitchCompat
     private  var sharedPreferences : SharedPreferences? = null
     private  var editor : SharedPreferences.Editor? = null
-    private var nightMode : Boolean? = null
+    private var nightMode : Boolean? = false
 
     companion object{
         private const val TAG = "MainActivity"
