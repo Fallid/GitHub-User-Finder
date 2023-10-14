@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:menuCategory="container">
+
+        <item
+            android:id="@+id/appBarThemeMode"
+            android:title="@string/light_mode"
+            android:icon="@drawable/baseline_settings_24"
+            app:showAsAction="ifRoom"/>
+
+        <item
+            android:id="@+id/appBarFavorite"
+            android:title="@string/favorite"
+            android:icon="@drawable/baseline_favorite_24"
+            app:showAsAction="ifRoom"/>
+
+    </group>
+
+</menu>

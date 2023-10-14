@@ -1,11 +1,17 @@
 package com.naufal.submissionawal.ui
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.naufal.submissionawal.R
 import com.naufal.submissionawal.data.response.SearchResponse
 import com.naufal.submissionawal.data.retrofit.ApiConfig
 import com.naufal.submissionawal.data.retrofit.ListDataUser
@@ -18,6 +24,11 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var searchViewModel: SearchViewModel
+    private lateinit var favoriteBinding: ActivityMainBinding
+    private lateinit var switchMode : SwitchCompat
+    private  var sharedPreferences : SharedPreferences? = null
+    private  var editor : SharedPreferences.Editor? = null
+    private var nightMode : Boolean? = null
 
     companion object{
         private const val TAG = "MainActivity"
@@ -27,6 +38,30 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE)
+        nightMode = sharedPreferences?.getBoolean("nightMode", false)!!
+
+        binding.MtAppBar.setOnMenuItemClickListener { menuItem -> when(menuItem.itemId){
+            R.id.appBarFavorite -> {
+                val  intent = Intent(this, FavoriteActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.appBarThemeMode -> {
+                if (nightMode == false){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    editor = sharedPreferences?.edit()
+                    editor?.putBoolean("nightMode", true)
+                }else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    editor = sharedPreferences?.edit()
+                    editor?.putBoolean("nightMode", false)
+                }
+                editor?.apply()
+                true
+            }
+            else -> false
+        } }
         searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
 
         with(binding) {
