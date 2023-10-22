@@ -20,12 +20,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityMainBinding
     private lateinit var searchViewModel: SearchViewModel
-    private  var sharedPreferences : SharedPreferences? = null
-    private  var editor : SharedPreferences.Editor? = null
-    private var nightMode : Boolean? = false
+    private lateinit var sharedPreferences : SharedPreferences
+    private lateinit var editor : SharedPreferences.Editor
+    private var nightMode : Boolean = false
+
 
     companion object{
         private const val TAG = "MainActivity"
@@ -36,25 +37,31 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE)
-        nightMode = sharedPreferences?.getBoolean("nightMode", false)!!
-
+        editor= sharedPreferences.edit()!!
+        nightMode= sharedPreferences.getBoolean("nightMode", false)
+        if (nightMode == false){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
         binding.MtAppBar.setOnMenuItemClickListener { menuItem -> when(menuItem.itemId){
             R.id.appBarFavorite -> {
                 val  intent = Intent(this, FavoriteActivity::class.java)
                 startActivity(intent)
                 true
             }
-            R.id.appBarThemeMode -> {
-                if (nightMode == false){
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    editor = sharedPreferences?.edit()
-                    editor?.putBoolean("nightMode", true)
-                }else{
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    editor = sharedPreferences?.edit()
-                    editor?.putBoolean("nightMode", false)
-                }
-                editor?.apply()
+            R.id.LightMode -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                editor = sharedPreferences.edit()
+                editor.putBoolean("nightMode", false)
+                editor.apply()
+                true
+            }
+            R.id.DarkMode -> {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                editor = sharedPreferences.edit()
+                editor.putBoolean("nightMode", true)
+                editor.apply()
                 true
             }
             else -> false
@@ -83,6 +90,20 @@ class MainActivity : AppCompatActivity() {
             resultSearch(searchViewModel.getSearchResult())
         }
     }
+
+//    private fun saveTheme(){
+//
+//        val sharedPreferences: SharedPreferences = getSharedPreferences("THEME_MODE", Context.MODE_PRIVATE)
+//        val editor: SharedPreferences.Editor = sharedPreferences.edit()
+//        editor.apply{
+//            putBoolean("BOOLEAN_KEY", R.id.appBarThemeMode.)
+//        }.apply()
+//    }
+
+//    private fun loadTheme(){
+//        val sharedPreferences: SharedPreferences = getSharedPreferences("THEME_MODE", Context.MODE_PRIVATE)
+//        val saveisDark: Boolean = sharedPreferences.getBoolean("BOOLEAN_KEY", true);
+//    }
 
     private fun getUserName(query: String){
         val client = ApiConfig.getApiService()
@@ -122,6 +143,12 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.VISIBLE
         }else{
             binding.progressBar.visibility = View.INVISIBLE
+        }
+    }
+
+    override fun onClick(view: View) {
+        if (view.id == R.id.appBarThemeMode){
+            val isDark = binding
         }
     }
 }

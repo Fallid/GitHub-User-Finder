@@ -11,16 +11,16 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("search/users?q")
-    @Headers("Authorization: token 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")
+    @Headers("Authorization: token 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")
     fun getUsers(@Query("q") query: String ): Call<ListDataUser>
 
 
     @GET("users/{username}/followers")
-    @Headers("Authorization: token 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")
+    @Headers("Authorization: token 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")
     fun getFollowers(@Path("username") username: String) : Call<List<FollowersResponse>>
 
     @GET("users/{username}/following")
-    @Headers("Authorization: token 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")
+    @Headers("Authorization: token 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")
     fun getFollowing(@Path("username") username: String) : Call<List<FollowingResponse>>
 }
 

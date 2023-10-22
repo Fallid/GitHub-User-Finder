@@ -3,19 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <group android:menuCategory="container">
+        <item
+        android:id="@+id/appBarFavorite"
+        android:title="@string/favorite"
+        android:icon="@drawable/baseline_favorite_24"
+        app:showAsAction="ifRoom"/>
 
         <item
-            android:id="@+id/appBarThemeMode"
+            android:menuCategory="container"
+            android:id="@+id/LightMode"
             android:title="@string/light_mode"
             android:icon="@drawable/baseline_settings_24"
-            app:showAsAction="ifRoom"/>
-
+            app:showAsAction="never"/>
         <item
-            android:id="@+id/appBarFavorite"
-            android:title="@string/favorite"
-            android:icon="@drawable/baseline_favorite_24"
-            app:showAsAction="ifRoom"/>
-
+            android:id="@+id/DarkMode"
+            android:title="@string/dark_mode_option"
+            app:showAsAction="never"/>
     </group>
+
 
 </menu>
