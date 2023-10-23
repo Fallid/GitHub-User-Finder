@@ -10,15 +10,10 @@
         app:showAsAction="ifRoom"/>
 
         <item
-            android:menuCategory="container"
-            android:id="@+id/LightMode"
-            android:title="@string/light_mode"
-            android:icon="@drawable/baseline_settings_24"
-            app:showAsAction="never"/>
-        <item
-            android:id="@+id/DarkMode"
-            android:title="@string/dark_mode_option"
-            app:showAsAction="never"/>
+        android:id="@+id/appBarThemeMode"
+        android:title="@string/light_mode"
+        android:icon="@drawable/baseline_settings_24"
+        app:showAsAction="ifRoom"/>
     </group>
 
 

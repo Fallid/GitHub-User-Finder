@@ -25,6 +25,7 @@ data class SearchResponse(
 data class UserContent(
     val name: String,
     val login: String,
+    val id: Int,
     val avatar_url: String,
     val followers: Int,
     val following: Int,
