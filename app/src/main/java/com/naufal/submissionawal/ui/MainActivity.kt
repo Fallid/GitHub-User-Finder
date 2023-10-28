@@ -20,13 +20,32 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+//import android.content.Context
+//import android.content.Intent
+//import android.content.SharedPreferences
+//import android.os.Bundle
+//import android.util.Log
+//import android.view.View
+//import androidx.appcompat.app.AppCompatActivity
+//import androidx.appcompat.app.AppCompatDelegate
+//import androidx.lifecycle.ViewModelProvider
+//import androidx.recyclerview.widget.LinearLayoutManager
+//import com.naufal.submissionawal.R
+//import com.naufal.submissionawal.data.response.SearchResponse
+//import com.naufal.submissionawal.data.retrofit.ApiConfig
+//import com.naufal.submissionawal.data.retrofit.ListDataUser
+//import com.naufal.submissionawal.data.viewModel.SearchViewModel
+//import com.naufal.submissionawal.databinding.ActivityMainBinding
+//import retrofit2.Call
+//import retrofit2.Callback
+//import retrofit2.Response
+
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var searchViewModel: SearchViewModel
     private  var sharedPreferences : SharedPreferences? = null
     private  var editor : SharedPreferences.Editor? = null
     private var nightMode : Boolean? = false
-
 
     companion object{
         private const val TAG = "MainActivity"
@@ -37,9 +56,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE)
-        editor= sharedPreferences?.edit()!!
-        nightMode= sharedPreferences?.getBoolean("nightMode", false)
-//        inisiasi pengecekan awal terhadap tema yang digunakan
+        nightMode = sharedPreferences?.getBoolean("nightMode", false)!!
         if (nightMode == false){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }else{
@@ -121,7 +138,6 @@ class MainActivity : AppCompatActivity() {
     }
     private fun resultSearch(users: List<SearchResponse>){
         val adapter = SearchUserAdaptor(users)
-
         binding.recyclerView.adapter = adapter
     }
 
@@ -132,6 +148,4 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.INVISIBLE
         }
     }
-
-
 }

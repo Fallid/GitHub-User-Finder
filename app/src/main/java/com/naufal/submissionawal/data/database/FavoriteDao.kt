@@ -1,4 +1,4 @@
-package com.naufal.submissionawal.database
+package com.naufal.submissionawal.data.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -9,15 +9,10 @@ import androidx.room.Query
 
 @Dao
 interface FavoriteDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(favorite: Favorite)
-
     @Delete
     fun delete(favorite: Favorite)
-
-    @Query("SELECT * from user WHERE id LIKE :id LIMIT 1")
-    fun findById(id:Int):LiveData<Favorite?>
-
-    @Query("SELECT * FROM user")
-    fun getAllFavorite(): LiveData<MutableList<Favorite>>
+    @Query("SELECT * FROM favorite ORDER BY id ASC")
+    fun getAllUserFavorite():LiveData<List<Favorite>>
 }
