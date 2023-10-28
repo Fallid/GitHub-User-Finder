@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private  var editor : SharedPreferences.Editor? = null
     private var nightMode : Boolean? = false
 
+
     companion object{
         private const val TAG = "MainActivity"
     }
@@ -36,8 +37,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         sharedPreferences = getSharedPreferences("MODE", Context.MODE_PRIVATE)
-        nightMode = sharedPreferences?.getBoolean("nightMode", false)!!
-
+        editor= sharedPreferences?.edit()!!
+        nightMode= sharedPreferences?.getBoolean("nightMode", false)
+//        inisiasi pengecekan awal terhadap tema yang digunakan
+        if (nightMode == false){
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        }else{
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        }
         binding.MtAppBar.setOnMenuItemClickListener { menuItem -> when(menuItem.itemId){
             R.id.appBarFavorite -> {
                 val  intent = Intent(this, FavoriteActivity::class.java)
@@ -114,6 +121,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun resultSearch(users: List<SearchResponse>){
         val adapter = SearchUserAdaptor(users)
+
         binding.recyclerView.adapter = adapter
     }
 
@@ -124,4 +132,6 @@ class MainActivity : AppCompatActivity() {
             binding.progressBar.visibility = View.INVISIBLE
         }
     }
+
+
 }
